@@ -8,41 +8,41 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ── Warm & Cute Design Tokens for Parents ── */
+/* ── Claude Brand Color Theme + V0 Layout ── */
 :root {
-  --bg: #FFF9F5;
-  --bg-warm: #FFF3EC;
+  --bg: #FAF6F3;
+  --bg-warm: #F3EEEA;
   --card: #FFFFFF;
-  --card-hover: #FFFAF7;
-  --accent: #FF9A7B;
-  --accent-light: #FFE8DF;
-  --accent-dark: #E87A5B;
-  --accent-soft: #FFB89E;
-  --text: #5D4E47;
-  --text-soft: #8B7B73;
-  --text-muted: #BBA99F;
-  --border: #F5E6DE;
-  --border-light: #FAEEE8;
-  --paid: #7BC47B;
-  --paid-bg: #E8F8E8;
-  --unpaid: #FF8A7A;
-  --unpaid-bg: #FFF0EE;
-  --highlight: #FFFAF5;
-  --shadow-sm: 0 2px 8px rgba(255,154,123,.08);
-  --shadow: 0 4px 16px rgba(255,154,123,.1);
-  --shadow-md: 0 6px 24px rgba(255,154,123,.12);
-  --shadow-lg: 0 12px 40px rgba(255,154,123,.15);
+  --card-hover: #FDF9F7;
+  --accent: #D97757;
+  --accent-light: #F8E4DC;
+  --accent-dark: #C0654A;
+  --accent-soft: #E8A88E;
+  --text: #3D3530;
+  --text-soft: #6E615A;
+  --text-muted: #A89A92;
+  --border: #E8DED6;
+  --border-light: #F0E8E2;
+  --paid: #6A9B6A;
+  --paid-bg: #EDF5ED;
+  --unpaid: #C4645A;
+  --unpaid-bg: #FAEDEB;
+  --highlight: #FFF8F4;
+  --shadow-sm: 0 2px 6px rgba(217,119,87,.06);
+  --shadow: 0 3px 12px rgba(217,119,87,.08);
+  --shadow-md: 0 6px 20px rgba(217,119,87,.1);
+  --shadow-lg: 0 10px 36px rgba(217,119,87,.12);
   --radius: 24px;
   --radius-sm: 18px;
   --radius-xs: 14px;
-  --cherry: #FF8A8A;
-  --cherry-bg: #FFF0F0;
-  --koelr: #8BC48B;
-  --koelr-bg: #F0FAF0;
-  --cotton: #FFB97B;
-  --cotton-bg: #FFF5EC;
-  --maple: #FF9A6B;
-  --maple-bg: #FFF3EC;
+  --cherry: #D97757;
+  --cherry-bg: #F8EDE8;
+  --koelr: #7A9A5E;
+  --koelr-bg: #EFF4EA;
+  --cotton: #C08A56;
+  --cotton-bg: #F7EEE3;
+  --maple: #B05E52;
+  --maple-bg: #F5E9E6;
   --transition: .25s cubic-bezier(.4,0,.2,1);
   --font-num: 'DM Sans', sans-serif;
 }
@@ -55,9 +55,9 @@ body {
   font-family: 'Zen Maru Gothic', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(255,184,158,.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(139,196,139,.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(255,233,220,.3) 0%, transparent 70%);
+    radial-gradient(circle at 20% 80%, rgba(217,119,87,.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(122,154,94,.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(245,230,216,.2) 0%, transparent 70%);
   background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
@@ -69,13 +69,13 @@ body {
 
 /* ── Header ── */
 .header {
-  background: linear-gradient(135deg, #FF9A7B 0%, #FFB89E 50%, #FFCDB8 100%);
+  background: linear-gradient(135deg, #D97757 0%, #E8A88E 50%, #F0C4B0 100%);
   padding: 3.5rem 1.5rem 3rem;
   text-align: center;
   position: relative;
   overflow: hidden;
   border-radius: 0 0 40px 40px;
-  box-shadow: 0 8px 32px rgba(255,154,123,.25);
+  box-shadow: 0 8px 32px rgba(217,119,87,.25);
 }
 .header::before {
   content: '';
@@ -148,14 +148,7 @@ body {
   position: relative;
 }
 .search-section::before {
-  content: '🔍';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--card);
-  padding: 0 .8rem;
-  font-size: 1.3rem;
+  display: none;
 }
 .search-label {
   font-size: .8rem;
@@ -191,7 +184,7 @@ body {
 }
 .search-wrapper input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255,154,123,.15);
+  box-shadow: 0 0 0 4px rgba(217,119,87,.15);
   background: var(--card);
 }
 .search-wrapper input:disabled {
@@ -211,11 +204,11 @@ body {
   transition: all var(--transition);
   white-space: nowrap;
   letter-spacing: 2px;
-  box-shadow: 0 4px 12px rgba(255,154,123,.3);
+  box-shadow: 0 4px 12px rgba(217,119,87,.3);
 }
 .btn-search:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, #D56A4B 100%);
-  box-shadow: 0 6px 20px rgba(255,154,123,.4);
+  background: linear-gradient(135deg, var(--accent-dark) 0%, #A85540 100%);
+  box-shadow: 0 6px 20px rgba(217,119,87,.4);
   transform: translateY(-2px);
 }
 .btn-search:active:not(:disabled) { transform: scale(.97) translateY(0); }
@@ -304,7 +297,7 @@ body {
 }
 .student-header {
   padding: 1.4rem 1.6rem;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  background: linear-gradient(135deg, #D97757 0%, #E8A88E 100%);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -379,7 +372,7 @@ body {
   align-items: center;
   gap: .6rem;
   padding: .9rem 2.2rem;
-  background: linear-gradient(135deg, #7BC47B 0%, #5BA85B 100%);
+  background: linear-gradient(135deg, #6A9B6A 0%, #578B57 100%);
   color: #fff;
   border: none;
   border-radius: var(--radius-xs);
@@ -390,12 +383,12 @@ body {
   text-decoration: none;
   letter-spacing: 2px;
   transition: all var(--transition);
-  box-shadow: 0 4px 16px rgba(123,196,123,.35);
+  box-shadow: 0 4px 16px rgba(106,155,106,.35);
 }
 .pay-btn:hover {
-  background: linear-gradient(135deg, #5BA85B 0%, #4A964A 100%);
+  background: linear-gradient(135deg, #578B57 0%, #487B48 100%);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(123,196,123,.45);
+  box-shadow: 0 8px 24px rgba(106,155,106,.45);
 }
 .pay-btn:active { transform: translateY(0); }
 
@@ -482,12 +475,12 @@ body {
 .paid-yes {
   background: var(--paid-bg);
   color: var(--paid);
-  box-shadow: 0 2px 8px rgba(123,196,123,.2);
+  box-shadow: 0 2px 8px rgba(106,155,106,.2);
 }
 .paid-no {
   background: var(--unpaid-bg);
   color: var(--unpaid);
-  box-shadow: 0 2px 8px rgba(255,138,122,.2);
+  box-shadow: 0 2px 8px rgba(196,100,90,.2);
 }
 .chevron {
   font-size: .55rem;
@@ -688,7 +681,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(93,78,71,.5);
+  background: rgba(61,53,48,.45);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
@@ -706,14 +699,14 @@ body {
   max-width: 440px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(255,154,123,.25);
+  box-shadow: 0 20px 60px rgba(217,119,87,.25);
   animation: modalUp .35s cubic-bezier(.4,0,.2,1);
   border: 2px solid var(--border-light);
 }
 @keyframes modalUp { from { opacity: 0; transform: translateY(40px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .modal-header {
   padding: 1.4rem 1.6rem;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  background: linear-gradient(135deg, #D97757 0%, #E8A88E 100%);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -794,7 +787,7 @@ body {
   background: var(--koelr-bg);
 }
 .pay-info-card.clickable::after {
-  content: '点击加好友 →';
+  content: '點擊加好友 →';
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -820,12 +813,12 @@ body {
   text-align: center;
   padding: 1.1rem;
   margin: 1rem 0;
-  background: linear-gradient(135deg, var(--unpaid-bg) 0%, #FFE5E0 100%);
+  background: linear-gradient(135deg, var(--unpaid-bg) 0%, #F5DDD8 100%);
   border-radius: var(--radius-xs);
   font-size: 1.15rem;
   color: var(--unpaid);
   font-weight: 700;
-  border: 2px solid rgba(255,138,122,.3);
+  border: 2px solid rgba(196,100,90,.3);
 }
 
 /* Form fields */
@@ -851,7 +844,7 @@ body {
 }
 .form-input:focus, .form-select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255,154,123,.15);
+  box-shadow: 0 0 0 4px rgba(217,119,87,.15);
   background: var(--card);
 }
 .form-input:disabled { opacity: .5; }
@@ -892,12 +885,12 @@ body {
   cursor: pointer;
   letter-spacing: 2px;
   transition: all var(--transition);
-  box-shadow: 0 4px 16px rgba(255,154,123,.3);
+  box-shadow: 0 4px 16px rgba(217,119,87,.3);
 }
 .btn-primary:hover:not(:disabled) { 
-  background: linear-gradient(135deg, var(--accent-dark) 0%, #D56A4B 100%); 
+  background: linear-gradient(135deg, var(--accent-dark) 0%, #A85540 100%); 
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,154,123,.4);
+  box-shadow: 0 6px 20px rgba(217,119,87,.4);
 }
 .btn-primary:active:not(:disabled) { transform: scale(.98) translateY(0); }
 .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
@@ -940,7 +933,7 @@ body {
 .step-dot.active {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(255,154,123,.3);
+  box-shadow: 0 4px 12px rgba(217,119,87,.3);
 }
 .step-dot.inactive {
   background: var(--border-light);
@@ -954,15 +947,15 @@ body {
 
 /* Reminder banner */
 .reminder-banner {
-  background: linear-gradient(135deg, #FFF8E8 0%, #FFF3D8 100%);
-  border: 2px solid #FFB74D;
+  background: linear-gradient(135deg, #FFF8F4 0%, #F8E4DC 100%);
+  border: 2px solid #E8A88E;
   border-radius: var(--radius-xs);
   padding: 1rem 1.2rem;
   margin-bottom: 1.2rem;
   text-align: center;
   font-size: 1rem;
   font-weight: 700;
-  color: #E65100;
+  color: #C0654A;
   line-height: 1.7;
   position: relative;
 }
@@ -976,14 +969,14 @@ body {
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #FFB74D;
+  border-bottom: 8px solid #E8A88E;
 }
 
 /* Pulse animation for CTA */
 @keyframes pulse {
-  0% { box-shadow: 0 4px 16px rgba(255,154,123,.3), 0 0 0 0 rgba(255,154,123,.4); }
-  70% { box-shadow: 0 4px 16px rgba(255,154,123,.3), 0 0 0 15px rgba(255,154,123,0); }
-  100% { box-shadow: 0 4px 16px rgba(255,154,123,.3), 0 0 0 0 rgba(255,154,123,0); }
+  0% { box-shadow: 0 4px 16px rgba(217,119,87,.3), 0 0 0 0 rgba(217,119,87,.4); }
+  70% { box-shadow: 0 4px 16px rgba(217,119,87,.3), 0 0 0 15px rgba(217,119,87,0); }
+  100% { box-shadow: 0 4px 16px rgba(217,119,87,.3), 0 0 0 0 rgba(217,119,87,0); }
 }
 .btn-primary.pulse {
   animation: pulse 2s infinite;
@@ -993,7 +986,7 @@ body {
 .success-screen {
   text-align: center;
   padding: 2rem 0;
-  background: linear-gradient(135deg, var(--paid-bg) 0%, #D5F0D5 100%);
+  background: linear-gradient(135deg, var(--paid-bg) 0%, #DCECD6 100%);
   border-radius: var(--radius-sm);
   margin: -1rem;
   margin-bottom: 1rem;
