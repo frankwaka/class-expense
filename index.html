@@ -556,6 +556,206 @@ body {
 @media (min-width: 481px) and (max-width: 768px) {
   .container { padding: 1.3rem .9rem 2.5rem; }
 }
+
+/* ── Payment Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61,53,48,.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: modalUp .3s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.modal-header {
+  padding: 1.2rem 1.4rem;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.modal-header h2 {
+  font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.modal-close {
+  background: rgba(255,255,255,.2);
+  border: none;
+  color: #fff;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+.modal-close:hover { background: rgba(255,255,255,.35); }
+.modal-body { padding: 1.3rem 1.4rem; }
+.modal-step { display: none; }
+.modal-step.active { display: block; }
+
+/* Pay info cards */
+.pay-info-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  margin-bottom: .8rem;
+}
+.pay-info-card .card-title {
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: .6rem;
+}
+.pay-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .35rem 0;
+  font-size: .88rem;
+}
+.pay-info-row .lbl { color: var(--text-soft); font-weight: 400; }
+.pay-info-row .val { font-weight: 600; color: var(--text); letter-spacing: .5px; }
+.pay-info-row .val.mono { font-family: var(--font-num); }
+.pay-deadline {
+  text-align: center;
+  padding: .8rem;
+  margin: .8rem 0;
+  background: var(--unpaid-bg);
+  border-radius: var(--radius-xs);
+  font-size: .85rem;
+  color: var(--unpaid);
+  font-weight: 500;
+}
+
+/* Form fields */
+.form-group { margin-bottom: 1rem; }
+.form-label {
+  display: block;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  margin-bottom: .4rem;
+}
+.form-input, .form-select {
+  width: 100%;
+  padding: .8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-size: .95rem;
+  font-family: inherit;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-input:focus, .form-select:focus {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 3px rgba(198,123,75,.1);
+}
+.form-input:disabled { opacity: .5; }
+.form-hint {
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin-top: .3rem;
+  line-height: 1.5;
+}
+.form-input.readonly-info {
+  background: var(--accent-light);
+  border-color: var(--accent-soft);
+  color: var(--text);
+  font-weight: 500;
+}
+.linepay-note {
+  background: var(--koelr-bg);
+  border: 1px solid #c5d8b3;
+  border-radius: var(--radius-xs);
+  padding: .8rem 1rem;
+  font-size: .82rem;
+  color: var(--koelr);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  padding: .85rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-xs);
+  font-size: .9rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background var(--transition), transform .12s;
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+.btn-primary:active:not(:disabled) { transform: scale(.98); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.btn-outline {
+  width: 100%;
+  padding: .75rem;
+  background: transparent;
+  color: var(--text-soft);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-size: .82rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: .5rem;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-outline:hover { background: var(--bg); border-color: var(--text-muted); }
+
+/* Success screen */
+.success-screen {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: .8rem;
+}
+.success-screen h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--paid);
+  margin-bottom: .4rem;
+}
+.success-screen p {
+  font-size: .85rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
 </style>
 </head>
 <body>
@@ -595,7 +795,19 @@ body {
 // ============================================================
 const SHEET_ID = '1Gqea_tTq_-Mvd8LfLbDKu9T5zB_vWB5pbQiYDgMidGE';
 const SHEET_NAME = '選修費';
-const PAY_URL = 'https://forms.gle/JMTbb2qYf4g7ZVF39';
+
+// ★ 繳費回報 Apps Script 網址（部署後貼在這裡）
+const SCRIPT_URL = '在這裡貼上你的 Apps Script 網址';
+
+// ★ 繳費資訊（每學季更新這裡就好）
+const PAY_INFO = {
+  bank: '台北富邦 012',
+  branch: '莊敬分行',
+  account: '00461168191348',
+  accountName: '戴依依',
+  linePay: '請先加「戴依依」為好友，並告知是幾號的家長',
+  deadline: '12/5',
+};
 
 // 已全部繳清的學季（格式：「年級名-學季名」）
 // 這些學季所有學生都會顯示「已繳」，不需要在試算表標記
@@ -841,12 +1053,178 @@ function render(x) {
     return `<div class="grade-section"><div class="grade-header ${g.colorClass}"><span class="grade-dot ${g.colorClass}"></span>${g.name}（${g.grade}）<span class="grade-subtotal">${gTotal > 0 ? '小計 $' + gTotal.toLocaleString() : ''}</span></div>${shtml}</div>`;
   }).join('');
   const gradeNames = x.grades.map(g => g.grade.replace('年級','')).join('～');
-  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div><div class="total-banner"><span class="label">${gradeNames}年級累計總費用</span><span class="amount">$${gt.toLocaleString()}</span></div>${gt > 0 ? `<div class="pay-btn-wrap"><a class="pay-btn" href="${PAY_URL}" target="_blank">💳 前往繳費</a></div>` : ''}${html}</div>`;
+  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div><div class="total-banner"><span class="label">${gradeNames}年級累計總費用</span><span class="amount">$${gt.toLocaleString()}</span></div>${gt > 0 ? `<div class="pay-btn-wrap"><button class="pay-btn" onclick="openPayModal('${x.name}', ${x.seat})">💳 繳費方式</button></div>` : ''}${html}</div>`;
 }
 
 function tog(el) { el.nextElementSibling.classList.toggle('open'); el.querySelector('.chevron').classList.toggle('open'); }
 
 loadAllData();
+
+// ============================================================
+// ★★★ 繳費回報彈窗 ★★★
+// ============================================================
+
+let currentStudent = { name: '', seat: 0 };
+
+function openPayModal(name, seat) {
+  currentStudent = { name, seat };
+  // 建立 modal HTML
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'payModal';
+  overlay.onclick = function(e) { if (e.target === overlay) closePayModal(); };
+
+  overlay.innerHTML = `
+    <div class="modal">
+      <div class="modal-header">
+        <h2>💳 繳費資訊</h2>
+        <button class="modal-close" onclick="closePayModal()">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <!-- 步驟一：顯示繳費資訊 -->
+        <div class="modal-step active" id="stepInfo">
+          <div class="pay-info-card">
+            <div class="card-title">銀行轉帳</div>
+            <div class="pay-info-row"><span class="lbl">銀行</span><span class="val">${PAY_INFO.bank}</span></div>
+            <div class="pay-info-row"><span class="lbl">分行</span><span class="val">${PAY_INFO.branch}</span></div>
+            <div class="pay-info-row"><span class="lbl">帳號</span><span class="val mono">${PAY_INFO.account}</span></div>
+            <div class="pay-info-row"><span class="lbl">戶名</span><span class="val">${PAY_INFO.accountName}</span></div>
+          </div>
+          <div class="pay-info-card">
+            <div class="card-title">LINE PAY</div>
+            <div style="font-size:.88rem;color:var(--text-soft);line-height:1.7">${PAY_INFO.linePay}</div>
+          </div>
+          <div class="pay-deadline">⏰ 繳費截止日：${PAY_INFO.deadline}</div>
+          <button class="btn-primary" onclick="goToStep('stepForm')">✅ 我已繳費，填寫回報</button>
+          <button class="btn-outline" onclick="closePayModal()">稍後再繳</button>
+        </div>
+
+        <!-- 步驟二：繳費回報表單 -->
+        <div class="modal-step" id="stepForm">
+          <div class="form-group">
+            <label class="form-label">學生姓名</label>
+            <input class="form-input readonly-info" type="text" value="${name}（座號 ${seat}）" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">付款方式</label>
+            <select class="form-select" id="payMethod" onchange="onMethodChange()">
+              <option value="">請選擇...</option>
+              <option value="富邦轉帳">富邦銀行轉帳</option>
+              <option value="LinePay">LINE Pay</option>
+            </select>
+          </div>
+          <div class="form-group" id="lastFiveGroup" style="display:none">
+            <label class="form-label">匯款帳號後五碼</label>
+            <input class="form-input" type="text" id="lastFive" placeholder="請輸入後五碼" maxlength="5" inputmode="numeric">
+            <div class="form-hint">方便老師核對款項</div>
+          </div>
+          <div id="linePayNote" style="display:none">
+            <div class="linepay-note">
+              📱 使用 LINE Pay 繳費請注意：<br>
+              1. 先加「${PAY_INFO.accountName}」為 LINE 好友<br>
+              2. 轉帳時請在訊息備註「<strong>${seat}號 ${name}</strong>」
+            </div>
+          </div>
+          <button class="btn-primary" id="submitBtn" onclick="submitReport()" disabled>送出繳費回報</button>
+          <button class="btn-outline" onclick="goToStep('stepInfo')">← 返回</button>
+        </div>
+
+        <!-- 步驟三：成功畫面 -->
+        <div class="modal-step" id="stepSuccess">
+          <div class="success-screen">
+            <div class="success-icon">🎉</div>
+            <h3>繳費回報已送出！</h3>
+            <p>老師會儘快確認您的繳費紀錄<br>感謝您的配合 ✨</p>
+          </div>
+          <button class="btn-primary" onclick="closePayModal()" style="margin-top:1rem">關閉</button>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+}
+
+function closePayModal() {
+  const modal = document.getElementById('payModal');
+  if (modal) {
+    modal.remove();
+    document.body.style.overflow = '';
+  }
+}
+
+function goToStep(stepId) {
+  document.querySelectorAll('#payModal .modal-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(stepId).classList.add('active');
+}
+
+function onMethodChange() {
+  const method = document.getElementById('payMethod').value;
+  const lastFiveGroup = document.getElementById('lastFiveGroup');
+  const linePayNote = document.getElementById('linePayNote');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (method === '富邦轉帳') {
+    lastFiveGroup.style.display = 'block';
+    linePayNote.style.display = 'none';
+    submitBtn.disabled = false;
+  } else if (method === 'LinePay') {
+    lastFiveGroup.style.display = 'none';
+    linePayNote.style.display = 'block';
+    submitBtn.disabled = false;
+  } else {
+    lastFiveGroup.style.display = 'none';
+    linePayNote.style.display = 'none';
+    submitBtn.disabled = true;
+  }
+}
+
+async function submitReport() {
+  const btn = document.getElementById('submitBtn');
+  const method = document.getElementById('payMethod').value;
+  const lastFive = method === '富邦轉帳' ? (document.getElementById('lastFive').value.trim()) : '（LINE Pay）';
+
+  if (!method) return;
+
+  // 富邦轉帳需要後五碼
+  if (method === '富邦轉帳' && !lastFive) {
+    alert('請填寫匯款帳號後五碼');
+    return;
+  }
+  if (method === '富邦轉帳' && !/^\d{5}$/.test(lastFive)) {
+    alert('後五碼請填 5 位數字');
+    return;
+  }
+
+  // 防重複送出
+  btn.disabled = true;
+  btn.textContent = '送出中...';
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        seat: currentStudent.seat,
+        name: currentStudent.name,
+        method: method,
+        lastFive: lastFive,
+      })
+    });
+
+    // no-cors 模式下無法讀取回應，直接當作成功
+    goToStep('stepSuccess');
+
+  } catch (err) {
+    alert('送出失敗，請稍後再試。\n錯誤：' + err.message);
+    btn.disabled = false;
+    btn.textContent = '送出繳費回報';
+  }
+}
 </script>
 </body>
 </html>
