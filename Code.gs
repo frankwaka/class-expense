@@ -60,11 +60,16 @@ function doPost(e) {
     if (!reportSheet) {
       // 自動建立頁籤和標題列
       reportSheet = ss.insertSheet('繳費回報');
-      reportSheet.appendRow(['座號', '姓名', '付款方式', '匯款後五碼', '回報時間']);
+      reportSheet.appendRow(['座號', '姓名', '付款方式', '匯款後五碼', '回報時間', '', '12/5']);
       // 設定標題格式
       const headerRange = reportSheet.getRange(1, 1, 1, 5);
       headerRange.setFontWeight('bold');
       headerRange.setBackground('#F5E6D8');
+      // G1 = 繳費截止日（改這格就能更新網頁上的截止日）
+      const deadlineCell = reportSheet.getRange('G1');
+      deadlineCell.setFontWeight('bold');
+      deadlineCell.setBackground('#FAEDEB');
+      reportSheet.getRange('F1').setValue('繳費截止日→').setFontColor('#999999');
     }
 
     // 取得台灣時間

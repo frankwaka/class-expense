@@ -891,6 +891,23 @@ function getCourseName(colName) {
 let allStudents = [];
 let dataReady = false;
 
+// 從「繳費回報」頁籤 G1 讀取繳費截止日
+async function fetchDeadline() {
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('繳費回報')}&range=G1`;
+    const res = await fetch(url);
+    const text = await res.text();
+    const jsonStr = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
+    if (jsonStr) {
+      const json = JSON.parse(jsonStr[1]);
+      const val = json.table?.rows?.[0]?.c?.[0]?.v;
+      if (val) PAY_INFO.deadline = String(val).trim();
+    }
+  } catch (e) {
+    // 讀不到就用預設值，不影響其他功能
+  }
+}
+
 async function fetchSheet() {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
   const res = await fetch(url);
@@ -987,6 +1004,7 @@ async function loadAllData() {
     const json = await fetchSheet();
     allStudents = parseData(json);
     dataReady = true;
+    await fetchDeadline(); // 從試算表讀取截止日
 
     document.getElementById('searchInput').disabled = false;
     document.getElementById('searchBtn').disabled = false;
