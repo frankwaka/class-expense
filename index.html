@@ -1318,6 +1318,7 @@ function doSearch() {
 
 function render(x) {
   let gt = 0;
+  let latestSeason = null; // 最新學季
   const html = x.grades.map(g => {
     let gTotal = 0;
     const shtml = g.seasons.map(sn => {
@@ -1326,13 +1327,18 @@ function render(x) {
       const seasonKey = g.name + '-' + sn.name;
       const forcePaid = PAID_SEASONS.includes(seasonKey);
       const isPaid = forcePaid || sn.paid === 'v';
+      // 記錄最新的學季（有金額的）
+      if (sn.total > 0) {
+        latestSeason = { gradeName: g.name, seasonName: sn.name, total: sn.total };
+      }
       const showPaidTag = sn.total > 0 ? (isPaid ? '<span class="season-paid paid-yes">✓ 已繳</span>' : '<span class="season-paid paid-no">未繳</span>') : '';
       return `<div class="season-group"><div class="season-header" onclick="tog(this)"><div class="season-title"><span class="season-icon">${sn.icon}</span>${sn.name}${showPaidTag}</div><div class="season-right"><span class="season-total">${sn.total > 0 ? '$' + sn.total.toLocaleString() : '-'}</span><span class="chevron">▼</span></div></div><div class="season-details">${active.length > 0 ? active.map(c => `<div class="course-row"><span class="course-name">${c.label}</span><span class="course-amount">$${c.amount.toLocaleString()}</span></div>`).join('') : '<div class="no-course">本學季無選修費用</div>'}</div></div>`;
     }).join('');
     return `<div class="grade-section"><div class="grade-header ${g.colorClass}"><span class="grade-dot ${g.colorClass}"></span>${g.name}（${g.grade}）<span class="grade-subtotal">${gTotal > 0 ? '小計 $' + gTotal.toLocaleString() : ''}</span></div>${shtml}</div>`;
   }).join('');
-  const gradeNames = x.grades.map(g => g.grade.replace('年級','')).join('～');
-  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div><div class="total-banner"><span class="label">${gradeNames}年級累計總費用</span><span class="amount">$${gt.toLocaleString()}</span></div>${gt > 0 ? `<div class="pay-btn-wrap"><button class="pay-btn" onclick="openPayModal('${x.name}', ${x.seat})">💳 繳費方式</button></div>` : ''}${html}</div>`;
+  // 顯示最新未繳學季金額，若全部繳清則顯示累計總費用
+  const bannerHtml = latestSeason ? `<div class="total-banner"><span class="label">${latestSeason.gradeName} ${latestSeason.seasonName} 應繳金額</span><span class="amount">$${latestSeason.total.toLocaleString()}</span></div>` : '';
+  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div>${bannerHtml}${latestSeason ? `<div class="pay-btn-wrap"><button class="pay-btn" onclick="openPayModal('${x.name}', ${x.seat})">💳 繳費方式</button></div>` : ''}${html}</div>`;
 }
 
 function tog(el) { el.nextElementSibling.classList.toggle('open'); el.querySelector('.chevron').classList.toggle('open'); }
