@@ -54,11 +54,6 @@
 body {
   font-family: 'Zen Maru Gothic', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(217,119,87,.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(122,154,94,.06) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(245,230,216,.2) 0%, transparent 70%);
-  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   min-height: 100dvh;
@@ -69,7 +64,7 @@ body {
 
 /* ── Header ── */
 .header {
-  background: linear-gradient(135deg, #D97757 0%, #E8A88E 50%, #F0C4B0 100%);
+  background: linear-gradient(135deg, #D97757 0%, #E0926E 100%);
   padding: 3.5rem 1.5rem 3rem;
   text-align: center;
   position: relative;
@@ -78,13 +73,7 @@ body {
   box-shadow: 0 8px 32px rgba(217,119,87,.25);
 }
 .header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 15% 30%, rgba(255,255,255,.3) 0%, transparent 40%),
-    radial-gradient(circle at 85% 70%, rgba(255,255,255,.2) 0%, transparent 40%);
-  pointer-events: none;
+  display: none;
 }
 .header::after {
   content: '🌸 🌼 🌷';
@@ -305,11 +294,7 @@ body {
   position: relative;
 }
 .student-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 90% 20%, rgba(255,255,255,.2) 0%, transparent 50%);
-  pointer-events: none;
+  display: none;
 }
 .student-header::after {
   content: '⭐';
@@ -340,7 +325,7 @@ body {
 
 /* ── Total Banner ── */
 .total-banner {
-  background: linear-gradient(135deg, var(--highlight) 0%, var(--accent-light) 100%);
+  background: var(--accent-light);
   padding: 1.2rem 1.6rem;
   display: flex;
   justify-content: space-between;
@@ -715,12 +700,7 @@ body {
   position: relative;
 }
 .modal-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,.2) 0%, transparent 50%);
-  pointer-events: none;
-  border-radius: 22px 22px 0 0;
+  display: none;
 }
 .modal-header h2 {
   font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
@@ -813,7 +793,7 @@ body {
   text-align: center;
   padding: 1.1rem;
   margin: 1rem 0;
-  background: linear-gradient(135deg, var(--unpaid-bg) 0%, #F5DDD8 100%);
+  background: var(--unpaid-bg);
   border-radius: var(--radius-xs);
   font-size: 1.15rem;
   color: var(--unpaid);
@@ -947,7 +927,7 @@ body {
 
 /* Reminder banner */
 .reminder-banner {
-  background: linear-gradient(135deg, #FFF8F4 0%, #F8E4DC 100%);
+  background: #FFF8F4;
   border: 2px solid #E8A88E;
   border-radius: var(--radius-xs);
   padding: 1rem 1.2rem;
@@ -986,7 +966,7 @@ body {
 .success-screen {
   text-align: center;
   padding: 2rem 0;
-  background: linear-gradient(135deg, var(--paid-bg) 0%, #DCECD6 100%);
+  background: var(--paid-bg);
   border-radius: var(--radius-sm);
   margin: -1rem;
   margin-bottom: 1rem;
