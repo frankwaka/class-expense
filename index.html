@@ -805,6 +805,7 @@ const PAY_INFO = {
   branch: '莊敬分行',
   account: '00461168191348',
   accountName: '戴依依',
+  linePayUrl: 'https://line.me/ti/p/7BYZ9G-oeF',
   linePay: '請先加「戴依依」為好友，並告知是幾號的家長',
   deadline: '12/5',
 };
@@ -1093,7 +1094,10 @@ function openPayModal(name, seat) {
           </div>
           <div class="pay-info-card">
             <div class="card-title">LINE PAY</div>
-            <div style="font-size:.88rem;color:var(--text-soft);line-height:1.7">${PAY_INFO.linePay}</div>
+            <div style="font-size:.88rem;color:var(--text-soft);line-height:1.7">
+              <a href="${PAY_INFO.linePayUrl}" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none">👉 點此加「${PAY_INFO.accountName}」為好友</a><br>
+              加好友後請告知是幾號的家長
+            </div>
           </div>
           <div class="pay-deadline">⏰ 繳費截止日：${PAY_INFO.deadline}</div>
           <button class="btn-primary" onclick="goToStep('stepForm')">✅ 我已繳費，填寫回報</button>
@@ -1122,7 +1126,7 @@ function openPayModal(name, seat) {
           <div id="linePayNote" style="display:none">
             <div class="linepay-note">
               📱 使用 LINE Pay 繳費請注意：<br>
-              1. 先加「${PAY_INFO.accountName}」為 LINE 好友<br>
+              1. <a href="${PAY_INFO.linePayUrl}" target="_blank" style="color:var(--koelr);font-weight:600">點此加「${PAY_INFO.accountName}」為好友</a><br>
               2. 轉帳時請在訊息備註「<strong>${seat}號 ${name}</strong>」
             </div>
           </div>
