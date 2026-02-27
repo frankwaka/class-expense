@@ -631,32 +631,31 @@ body {
   min-width: 0;
 }
 .pay-info-card .card-title {
-  font-size: .82rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: .6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: .8rem;
 }
 .pay-info-row {
-  padding: .3rem 0;
-  font-size: .92rem;
+  padding: .35rem 0;
+  font-size: 1.05rem;
 }
-.pay-info-row .lbl { color: var(--text-soft); font-weight: 400; }
-.pay-info-row .val { font-weight: 600; color: var(--text); letter-spacing: .3px; display: block; }
-.pay-info-row .val.mono { font-family: var(--font-num); font-size: .88rem; word-break: break-all; }
+.pay-info-row .lbl { color: var(--text-soft); font-weight: 400; font-size: .95rem; }
+.pay-info-row .val { font-weight: 700; color: var(--text); letter-spacing: .3px; display: block; font-size: 1.05rem; }
+.pay-info-row .val.mono { font-family: var(--font-num); font-size: 1rem; word-break: break-all; }
 @media (max-width: 480px) {
   .pay-methods-row { flex-direction: column; }
 }
 .pay-deadline {
   text-align: center;
-  padding: .8rem;
+  padding: 1rem;
   margin: .8rem 0;
   background: var(--unpaid-bg);
   border-radius: var(--radius-xs);
-  font-size: .95rem;
+  font-size: 1.1rem;
   color: var(--unpaid);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Form fields */
@@ -711,12 +710,12 @@ body {
 /* Buttons */
 .btn-primary {
   width: 100%;
-  padding: .85rem;
+  padding: 1rem;
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: var(--radius-xs);
-  font-size: .9rem;
+  font-size: 1.05rem;
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -728,12 +727,12 @@ body {
 .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
 .btn-outline {
   width: 100%;
-  padding: .75rem;
+  padding: .85rem;
   background: transparent;
   color: var(--text-soft);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-xs);
-  font-size: .82rem;
+  font-size: .95rem;
   font-family: inherit;
   font-weight: 500;
   cursor: pointer;
@@ -1143,7 +1142,7 @@ function openPayModal(name, seat) {
             </div>
             <div class="pay-info-card">
               <div class="card-title">💚 LINE PAY</div>
-              <div style="font-size:.92rem;color:var(--text-soft);line-height:1.8">
+              <div style="font-size:1.05rem;color:var(--text-soft);line-height:1.8">
                 <a href="${PAY_INFO.linePayUrl}" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none">👉 點此加好友</a><br>
                 戶名：${PAY_INFO.accountName}<br>
                 加好友後請告知<br>是幾號的家長
