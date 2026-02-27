@@ -1030,7 +1030,15 @@ const searchInput = document.getElementById('searchInput');
 const acList = document.getElementById('autocomplete');
 const resultsDiv = document.getElementById('results');
 
-searchInput.addEventListener('input', () => {
+// 處理中文輸入法（注音/拼音）的組字狀態
+let isComposing = false;
+searchInput.addEventListener('compositionstart', () => { isComposing = true; });
+searchInput.addEventListener('compositionend', () => {
+  isComposing = false;
+  triggerSearch(); // 組字完成後立即搜尋
+});
+
+function triggerSearch() {
   if (!dataReady) return;
   const q = searchInput.value.trim();
   if (!q) { acList.classList.remove('show'); return; }
@@ -1038,11 +1046,27 @@ searchInput.addEventListener('input', () => {
   if (!m.length) { acList.classList.remove('show'); return; }
   acList.innerHTML = m.map(x => `<div class="ac-item" data-seat="${x.seat}" data-name="${x.name}"><span>${x.name}</span><span class="seat">座號 ${x.seat}</span></div>`).join('');
   acList.classList.add('show');
+}
+
+searchInput.addEventListener('input', () => {
+  if (isComposing) return; // 組字中先不搜尋
+  triggerSearch();
 });
 
 acList.addEventListener('click', e => {
   const item = e.target.closest('.ac-item');
   if (!item) return;
+  searchInput.value = item.dataset.name;
+  acList.classList.remove('show');
+  const x = allStudents.find(s => s.seat === Number(item.dataset.seat) && s.name === item.dataset.name);
+  if (x) render(x);
+});
+
+// 手機觸控支援
+acList.addEventListener('touchend', e => {
+  const item = e.target.closest('.ac-item');
+  if (!item) return;
+  e.preventDefault();
   searchInput.value = item.dataset.name;
   acList.classList.remove('show');
   const x = allStudents.find(s => s.seat === Number(item.dataset.seat) && s.name === item.dataset.name);
