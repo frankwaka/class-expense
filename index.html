@@ -681,6 +681,20 @@ body {
 .pay-info-row .lbl { color: var(--text-soft); font-weight: 400; font-size: .95rem; }
 .pay-info-row .val { font-weight: 700; color: var(--text); letter-spacing: .3px; display: block; font-size: 1.05rem; }
 .pay-info-row .val.mono { font-family: var(--font-num); font-size: 1rem; word-break: break-all; }
+.pay-info-card.clickable {
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform .15s, box-shadow var(--transition);
+  position: relative;
+}
+.pay-info-card.clickable:hover {
+  background: #e8f5e9;
+  border-color: #81c784;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(106,155,106,.2);
+}
+.pay-info-card.clickable:active {
+  transform: translateY(0);
+}
 @media (max-width: 480px) {
   .pay-methods-row { flex-direction: column; }
 }
@@ -1177,10 +1191,10 @@ function openPayModal(name, seat) {
               <div class="pay-info-row"><span class="lbl">帳號</span><span class="val mono">${PAY_INFO.account}</span></div>
               <div class="pay-info-row"><span class="lbl">戶名</span><span class="val">${PAY_INFO.accountName}</span></div>
             </div>
-            <div class="pay-info-card">
+            <div class="pay-info-card clickable" onclick="window.open('${PAY_INFO.linePayUrl}','_blank')">
               <div class="card-title">💚 LINE PAY</div>
               <div style="font-size:1.05rem;color:var(--text-soft);line-height:1.8">
-                <a href="${PAY_INFO.linePayUrl}" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none">👉 點此加好友</a><br>
+                👉 點此加好友<br>
                 戶名：${PAY_INFO.accountName}<br>
                 加好友後請告知<br>是幾號的家長
               </div>
