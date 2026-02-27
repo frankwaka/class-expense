@@ -588,6 +588,8 @@ body {
   .form-input, .form-select { font-size: 1.1rem; padding: .9rem 1rem; }
   .form-hint { font-size: .85rem; }
   .linepay-note { font-size: .95rem; }
+  .reminder-banner { font-size: 1.05rem; padding: 1rem; }
+  .step-indicator { margin-bottom: .8rem; }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -793,6 +795,62 @@ body {
   transition: background var(--transition), border-color var(--transition);
 }
 .btn-outline:hover { background: var(--bg); border-color: var(--text-muted); }
+
+/* Step indicator */
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+.step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+}
+.step-dot.active {
+  background: var(--accent);
+  color: #fff;
+}
+.step-dot.inactive {
+  background: var(--border);
+  color: var(--text-muted);
+}
+.step-line {
+  width: 40px; height: 2px;
+  background: var(--border);
+}
+
+/* Reminder banner */
+.reminder-banner {
+  background: #fff3e0;
+  border: 2px solid #ff9800;
+  border-radius: var(--radius-xs);
+  padding: .9rem 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: .95rem;
+  font-weight: 600;
+  color: #e65100;
+  line-height: 1.6;
+}
+
+/* Pulse animation for CTA */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(198,123,75,.5); }
+  70% { box-shadow: 0 0 0 12px rgba(198,123,75,0); }
+  100% { box-shadow: 0 0 0 0 rgba(198,123,75,0); }
+}
+.btn-primary.pulse {
+  animation: pulse 2s infinite;
+}
 
 /* Success screen */
 .success-screen {
@@ -1185,6 +1243,14 @@ function openPayModal(name, seat) {
 
         <!-- 步驟一：顯示繳費資訊 -->
         <div class="modal-step active" id="stepInfo">
+          <div class="step-indicator">
+            <span class="step-dot active">1</span>
+            <span class="step-line"></span>
+            <span class="step-dot inactive">2</span>
+          </div>
+          <div class="reminder-banner">
+            ⚠️ 轉帳完成後，請務必回來<br>點下方「我已繳費」按鈕回報！
+          </div>
           <div class="pay-methods-row">
             <div class="pay-info-card">
               <div class="card-title">🏦 銀行轉帳</div>
@@ -1203,12 +1269,17 @@ function openPayModal(name, seat) {
             </div>
           </div>
           <div class="pay-deadline">⏰ 繳費截止日：${PAY_INFO.deadline}</div>
-          <button class="btn-primary" onclick="goToStep('stepForm')">✅ 我已繳費，填寫回報</button>
-          <button class="btn-outline" onclick="closePayModal()">稍後再繳</button>
+          <button class="btn-primary pulse" onclick="goToStep('stepForm')">✅ 已繳費，下一步填寫回報 →</button>
+          <button class="btn-outline" onclick="closePayModal()">還沒繳費，稍後再來</button>
         </div>
 
         <!-- 步驟二：繳費回報表單 -->
         <div class="modal-step" id="stepForm">
+          <div class="step-indicator">
+            <span class="step-dot inactive">✓</span>
+            <span class="step-line"></span>
+            <span class="step-dot active">2</span>
+          </div>
           <div class="form-group">
             <label class="form-label">學生姓名</label>
             <input class="form-input readonly-info" type="text" value="${name}（座號 ${seat}）" readonly>
