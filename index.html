@@ -1355,7 +1355,7 @@ function render(x) {
   if (latestSeason) {
     if (latestSeason.total > 0) {
       bannerHtml = `<div class="total-banner"><span class="label">${latestSeason.gradeName} ${latestSeason.seasonName} 應繳金額</span><span class="amount">$${latestSeason.total.toLocaleString()}</span></div>`;
-      payBtnHtml = `<div class="pay-btn-wrap"><button class="pay-btn" onclick="openPayModal('${x.name}', ${x.seat})">💳 繳費方式</button></div>`;
+      payBtnHtml = `<div class="pay-btn-wrap"><button class="pay-btn" onclick="openPayModal('${x.name}', ${x.seat}, ${latestSeason.total})">💳 繳費方式</button></div>`;
     } else {
       bannerHtml = `<div class="total-banner"><span class="label">${latestSeason.gradeName} ${latestSeason.seasonName}</span><span class="amount" style="color:var(--paid)">本學季無需繳費</span></div>`;
     }
@@ -1371,10 +1371,10 @@ loadAllData();
 // ★★★ 繳費回報彈窗 ★★★
 // ============================================================
 
-let currentStudent = { name: '', seat: 0 };
+let currentStudent = { name: '', seat: 0, amount: 0 };
 
-function openPayModal(name, seat) {
-  currentStudent = { name, seat };
+function openPayModal(name, seat, amount) {
+  currentStudent = { name, seat, amount };
   // 建立 modal HTML
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
@@ -1536,6 +1536,7 @@ async function submitReport() {
       name: currentStudent.name,
       method: method,
       lastFive: lastFive,
+      amount: currentStudent.amount,
     });
     const url = SCRIPT_URL + '?' + params.toString();
 
