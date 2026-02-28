@@ -1123,7 +1123,7 @@ let dataReady = false;
 // 從「繳費回報」頁籤 G1 讀取繳費截止日
 async function fetchDeadline() {
   try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('繳費回報')}&range=G1`;
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('繳費回報')}&range=A1`;
     const res = await fetch(url);
     const text = await res.text();
     const jsonStr = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
