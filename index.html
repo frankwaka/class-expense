@@ -378,10 +378,8 @@ body {
 .pay-btn:active { transform: translateY(0); }
 
 .photo-link-wrap {
-  padding: .6rem 1.6rem 1rem;
+  padding: 1rem 1.6rem;
   text-align: center;
-  background: var(--bg-warm);
-  border-bottom: 2px solid var(--border-light);
 }
 .photo-link-btn {
   display: inline-flex;
@@ -1053,6 +1051,7 @@ body {
   </div>
 </div>
 
+<div class="photo-link-wrap"><a class="photo-link-btn" href="https://drive.google.com/drive/folders/19_EBXvx2q-m5DRLUseTyTJmzGY_ahLJH" target="_blank" rel="noopener">📷 收據照片</a></div>
 <div class="footer">班級選修費用查詢系統　　和平實驗小學</div>
 
 <script>
@@ -1391,8 +1390,7 @@ function render(x) {
       bannerHtml = `<div class="total-banner"><span class="label">${latestSeason.gradeName} ${latestSeason.seasonName}</span><span class="amount" style="color:var(--paid)">本學季無需繳費</span></div>`;
     }
   }
-  const photoLinkHtml = `<div class="photo-link-wrap"><a class="photo-link-btn" href="https://drive.google.com/drive/folders/19_EBXvx2q-m5DRLUseTyTJmzGY_ahLJH" target="_blank" rel="noopener">📷 收據照片</a></div>`;
-  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div>${bannerHtml}${payBtnHtml}${photoLinkHtml}${html}</div>`;
+  resultsDiv.innerHTML = `<div class="student-card"><div class="student-header"><span class="student-name">${x.name}</span><span class="student-seat">座號 ${x.seat}</span></div>${bannerHtml}${payBtnHtml}${html}</div>`;
 }
 
 function tog(el) { el.nextElementSibling.classList.toggle('open'); el.querySelector('.chevron').classList.toggle('open'); }
