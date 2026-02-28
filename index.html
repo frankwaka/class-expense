@@ -1539,15 +1539,14 @@ async function submitReport() {
     });
     const url = SCRIPT_URL + '?' + params.toString();
 
-    // 用隱藏 iframe 送出，確保請求到達 Apps Script
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
-
-    // 等待一下讓請求送出
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    iframe.remove();
+    // 用 Image 發送 GET 請求，不受 CORS 限制
+    await new Promise((resolve) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve; // 即使回傳非圖片也算送出成功
+      img.src = url;
+      setTimeout(resolve, 3000); // 最多等 3 秒
+    });
 
     goToStep('stepSuccess');
 
