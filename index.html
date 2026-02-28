@@ -1530,19 +1530,25 @@ async function submitReport() {
   btn.textContent = '送出中...';
 
   try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({
-        seat: currentStudent.seat,
-        name: currentStudent.name,
-        method: method,
-        lastFive: lastFive,
-      })
+    // 用 GET + URL 參數送出，避免 CORS 問題
+    const params = new URLSearchParams({
+      seat: currentStudent.seat,
+      name: currentStudent.name,
+      method: method,
+      lastFive: lastFive,
     });
+    const url = SCRIPT_URL + '?' + params.toString();
 
-    // no-cors 模式下無法讀取回應，直接當作成功
+    // 用隱藏 iframe 送出，確保請求到達 Apps Script
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+
+    // 等待一下讓請求送出
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    iframe.remove();
+
     goToStep('stepSuccess');
 
   } catch (err) {

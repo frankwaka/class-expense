@@ -4,17 +4,24 @@
 // ============================================================
 
 /**
- * doPost(e)
- * 接收前端 POST 過來的繳費回報資料，寫入「繳費回報」頁籤
+ * doGet(e)
+ * 如果帶有 seat 參數 → 處理繳費回報
+ * 如果沒帶參數 → 健康檢查
  */
-function doPost(e) {
+function doGet(e) {
+  var params = e.parameter || {};
+
+  // 沒帶參數 = 健康檢查
+  if (!params.seat) {
+    return jsonResponse({ status: 'ok', message: '繳費回報 API 運作中' });
+  }
+
+  // 有帶參數 = 繳費回報
   try {
-    // 解析 POST 資料
-    const data = JSON.parse(e.postData.contents);
-    const seat = String(data.seat || '').trim();
-    const name = String(data.name || '').trim();
-    const method = String(data.method || '').trim();
-    const lastFive = String(data.lastFive || '').trim();
+    var seat = String(params.seat || '').trim();
+    var name = String(params.name || '').trim();
+    var method = String(params.method || '').trim();
+    var lastFive = String(params.lastFive || '').trim();
 
     // 基本驗證
     if (!seat || !name || !method) {
@@ -22,18 +29,17 @@ function doPost(e) {
     }
 
     // 驗證座號是否存在（從「選修費」頁籤比對）
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const mainSheet = ss.getSheetByName('選修費');
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var mainSheet = ss.getSheetByName('選修費');
     if (!mainSheet) {
       return jsonResponse({ success: false, message: '找不到「選修費」頁籤' });
     }
 
-    const mainData = mainSheet.getDataRange().getValues();
-    // 找座號欄和姓名欄
-    const headers = mainData[0];
-    let seatCol = -1, nameCol = -1;
-    for (let i = 0; i < headers.length; i++) {
-      const h = String(headers[i]);
+    var mainData = mainSheet.getDataRange().getValues();
+    var headers = mainData[0];
+    var seatCol = -1, nameCol = -1;
+    for (var i = 0; i < headers.length; i++) {
+      var h = String(headers[i]);
       if (h.includes('座號')) seatCol = i;
       if (h.includes('姓名')) nameCol = i;
     }
@@ -42,10 +48,10 @@ function doPost(e) {
     }
 
     // 比對座號+姓名
-    let verified = false;
-    for (let r = 1; r < mainData.length; r++) {
-      const rowSeat = String(Math.round(Number(mainData[r][seatCol])));
-      const rowName = String(mainData[r][nameCol]).trim();
+    var verified = false;
+    for (var r = 1; r < mainData.length; r++) {
+      var rowSeat = String(Math.round(Number(mainData[r][seatCol])));
+      var rowName = String(mainData[r][nameCol]).trim();
       if (rowSeat === seat && rowName === name) {
         verified = true;
         break;
@@ -56,18 +62,16 @@ function doPost(e) {
     }
 
     // 寫入「繳費回報」頁籤
-    let reportSheet = ss.getSheetByName('繳費回報');
+    var reportSheet = ss.getSheetByName('繳費回報');
     if (!reportSheet) {
-      // 自動建立頁籤和標題列
       reportSheet = ss.insertSheet('繳費回報');
-      // A1 = 繳費截止日（改這格就能更新網頁上的截止日）
       reportSheet.getRange('A1').setValue('12/5').setFontWeight('bold').setBackground('#FAEDEB');
       reportSheet.appendRow(['座號', '姓名', '付款方式', '匯款後五碼', '回報時間']);
     }
 
     // 取得台灣時間
-    const now = new Date();
-    const twTime = Utilities.formatDate(now, 'Asia/Taipei', 'yyyy/MM/dd HH:mm:ss');
+    var now = new Date();
+    var twTime = Utilities.formatDate(now, 'Asia/Taipei', 'yyyy/MM/dd HH:mm:ss');
 
     // 寫入新一行
     reportSheet.appendRow([
@@ -80,7 +84,7 @@ function doPost(e) {
 
     return jsonResponse({
       success: true,
-      message: `${name}（座號 ${seat}）的繳費回報已成功送出！`
+      message: name + '（座號 ' + seat + '）的繳費回報已成功送出！'
     });
 
   } catch (err) {
@@ -95,11 +99,4 @@ function jsonResponse(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
-}
-
-/**
- * doGet(e) — 簡單的健康檢查
- */
-function doGet(e) {
-  return jsonResponse({ status: 'ok', message: '繳費回報 API 運作中' });
 }
