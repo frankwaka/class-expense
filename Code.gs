@@ -21,7 +21,7 @@ function doGet(e) {
     var reportSheet = ss.getSheetByName('繳費回報');
     var now = new Date();
     var twTime = Utilities.formatDate(now, 'Asia/Taipei', 'yyyy/MM/dd HH:mm:ss');
-    reportSheet.appendRow([parseInt(seat), name, method, lastFive || '（無）', parseInt(amount), twTime]);
+    reportSheet.appendRow([parseInt(seat), name, method, lastFive || '（無）', '$' + amount, twTime]);
     return ContentService.createTextOutput(JSON.stringify({success:true})).setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({success:false, error:err.message})).setMimeType(ContentService.MimeType.JSON);
