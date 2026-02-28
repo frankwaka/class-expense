@@ -1129,8 +1129,24 @@ async function fetchDeadline() {
     const jsonStr = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
     if (jsonStr) {
       const json = JSON.parse(jsonStr[1]);
-      const val = json.table?.rows?.[0]?.c?.[0]?.v;
-      if (val) PAY_INFO.deadline = String(val).trim();
+      const cell = json.table?.rows?.[0]?.c?.[0];
+      if (cell) {
+        // 優先使用格式化後的值（f），如果沒有就解析原始值（v）
+        if (cell.f) {
+          PAY_INFO.deadline = String(cell.f).trim();
+        } else {
+          const val = String(cell.v).trim();
+          // 處理 Google 回傳的 Date(year,month,day) 格式
+          const dateMatch = val.match(/Date\((\d+),(\d+),(\d+)\)/);
+          if (dateMatch) {
+            const month = parseInt(dateMatch[2]) + 1; // Google 月份從 0 開始
+            const day = parseInt(dateMatch[3]);
+            PAY_INFO.deadline = `${month}/${day}`;
+          } else {
+            PAY_INFO.deadline = val;
+          }
+        }
+      }
     }
   } catch (e) {
     // 讀不到就用預設值，不影響其他功能
