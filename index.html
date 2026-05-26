@@ -1261,7 +1261,8 @@ function parseData(json) {
 
       const seasons = Object.values(seasonMap).map(sn => {
         const total = sn.courses.reduce((a, c) => a + c.amount, 0);
-        const paid = sn.paidIdx >= 0 ? (cells[sn.paidIdx]?.v === 'v' ? 'v' : '') : null;
+        const mark = String(cells[sn.paidIdx]?.v ?? '').trim().toLowerCase().replace(/ｖ/g, 'v');
+   const paid = sn.paidIdx >= 0 ? (['v', '✓', '✔', 'o', '是'].includes(mark) ? 'v' : '') : null;
         return { ...sn, total, paid };
       });
 
